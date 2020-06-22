@@ -14,37 +14,49 @@ import java.util.Scanner;
 public class GoFishApp {
 
     public static void main(String[] args) {
-        
-        Card[] magicHand = new Card[7];
-   
+       
+        System.out.println();
+        Hand hand = new Hand(5);
         Random random=new Random();
         
-        for (int i = 0; i < magicHand.length; i++) {
-            
-            //c.setValue(insert call to random number generator here)
-            //c.setSuit(Card.SUITS[insert call to random number between 0-3 here])
+        //temporary population of hand (david u can implement later, sometimes it adds identical cards btw)
+        for (int i = 0; i < hand.getHandSize(); i++) { //handSize gives 5 cards, the gofish handsize(very temporary-just for testing)
+     
             int value=random.nextInt(13)+1;
             String suit=Card.SUITS[random.nextInt(3)];
             Card c = new Card(value,suit);
-            magicHand[i]=c;
+            hand.addToHand(c);
+           
         }
-       
-        for(Card card:magicHand){
-            System.out.println(card.getValue()+card.getSuit());
-        }
+        //make a player
+        Player p1 = new Player("Nick",hand);
+        //print the player info completely
+        System.out.println(p1);
         
-        //insert code to ask the user for Card value and suit, create their card
+        
+        //guessing functionality from class exercise
         Card guessCard = pickCard();
-        //Card guessCard = luckyCard;
         
-        // and search magicHand here
+        
+        //check for win
         boolean win = false;
-        for(Card card:magicHand){
-            if(guessCard.getValue()==card.getValue()&& guessCard.getSuit().equalsIgnoreCase(card.getSuit())){
-                win = true;
-            }
+        
+        
+        if(p1.checkHand(guessCard)){
+            win = true;
+            //returns true and automatically removes the given card
         }
-        //Then report the result here
+        
+        /*
+         if(p1.addToHand(guessCard)){
+            //successfully added a card to the hand
+        }else{
+            //hand is already full because 5 card limit for gofish
+        }
+        */
+        
+        System.out.println(p1);
+        //Report the results here
         if(win){
             System.out.println("You guessed correct!");
         }else{
@@ -52,7 +64,9 @@ public class GoFishApp {
         }
 
     }
-    
+    //pick card method that gets user input, validating its value as a number
+    //does not validate the suit
+    //basic method for testing (David will add later)
     public static Card pickCard(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Pick a card, any card!");
