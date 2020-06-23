@@ -16,57 +16,80 @@ public class GoFishApp {
     public static void main(String[] args) {
        
         System.out.println();
-        Hand hand = new Hand(5);
         Random random=new Random();
         
-        //temporary population of hand (david u can implement later, sometimes it adds identical cards btw)
-        for (int i = 0; i < hand.getHandSize(); i++) { //handSize gives 5 cards, the gofish handsize(very temporary-just for testing)
-     
+        //make a player Hand
+        PlayerHand nicksHand = new PlayerHand(5);//5 is the number of cards u want
+        //make a player 
+        Player p1 = new Player("Nick",nicksHand);
+        
+        //temporary population of nicksHand (david u can implement later) 
+        //this needs enums to prevent repeating cards (i.e. making 2 identical cards)
+        Card c = new Card();
+        do {            
             int value=random.nextInt(13)+1;
             String suit=Card.SUITS[random.nextInt(3)];
-            Card c = new Card(value,suit);
-            hand.addToHand(c);
-           
-        }
-        //make a player
-        Player p1 = new Player("Nick",hand);
+            c = new Card(value,suit);
+        } while (nicksHand.addToHand(c));
+     
+        
         //print the player info completely
-        System.out.println(p1);
+        System.out.println(nicksHand.showHand());
         
         
-        //guessing functionality from class exercise
+        //takes user input of a guess card from class exercise
         Card guessCard = pickCard();
-        
-        
-        //check for win
-        boolean win = false;
-        
-        
-        if(p1.checkHand(guessCard)){
-            win = true;
-            //returns true and automatically removes the given card
+        if(p1.checkHand(guessCard) == false){
+            System.out.println("Go fish");
         }
-        
         /*
-         if(p1.addToHand(guessCard)){
-            //successfully added a card to the hand
-        }else{
-            //hand is already full because 5 card limit for gofish
-        }
+        *this block of code, checks to add score or not, if the hand has the guesscard, 
+        *and removes all cards with the same value as the guesscard. 
+        *(go fish is based on values, if u get four cards of the same value, the score increases)
         */
+        p1.checkScore(guessCard);
+        while(p1.checkHand(guessCard)){
+            for (int i = 0; i < p1.getHand().size(); i++) {
+                if(p1.getHand().get(i).getValue()==guessCard.getValue()){
+                    p1.removeFromHand(p1.getHand().get(i));
+                }
+            }
+        }//while the hand still has a card with the same value as guesscard
         
-        System.out.println(p1);
-        //Report the results here
-        if(win){
-            System.out.println("You guessed correct!");
-        }else{
-              System.out.println("You guessed Wrong :(");
+        
+        
+        //sort nicks hand 
+        nicksHand.sortHand();
+        System.out.println(nicksHand.showHand());
+        
+        
+        //hide your hand?
+        System.out.println("Hide your hand? Y/N");
+        Scanner sc = new Scanner(System.in);
+        if(sc.nextLine().equalsIgnoreCase("y")){
+            
+            System.out.println(nicksHand.hideHand());
         }
-
+        //pick again, this is all hardcoded for testing
+        guessCard = pickCard();
+        
+        //make a deck of size 52
+        Deck deck = new Deck(52);
+        
+        do {            
+            int value=random.nextInt(13)+1;
+            String suit=Card.SUITS[random.nextInt(3)];
+            c = new Card(value,suit);
+        } while (deck.addToHand(c));
+        //showHand sorts the hand and returns a formatted string to print
+        //print the deck
+        //System.out.println(deck.showHand());
+        
+       
     }
     //pick card method that gets user input, validating its value as a number
     //does not validate the suit
-    //basic method for testing (David will add later)
+    //basic method for testing (can change if needed)
     public static Card pickCard(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Pick a card, any card!");
@@ -75,11 +98,12 @@ public class GoFishApp {
         int value;
         
         try {
+            /*
             System.out.print("Enter Suit: ");
             suit = sc.nextLine().trim();
             guessCard.setSuit(suit);
-            
-            System.out.print("Enter value: ");
+            */
+            System.out.print("Got any?: ");
             value = sc.nextInt();
             if((value<0||value>13)){
                 System.out.println("Value must be greater than 0 and less than 14");
