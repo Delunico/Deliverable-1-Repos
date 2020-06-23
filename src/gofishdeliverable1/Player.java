@@ -9,23 +9,24 @@ import java.util.ArrayList;
 public class Player {
 
     private String name;
-    private Hand hand; //delegation
+    private PlayerHand hand; //delegation
     private int score;
 
-    public Player(String name,Hand hand) {
+    public Player(String name,PlayerHand hand) {
         this.name = name;
         this.hand = hand;
     }
 
-    public void setHand(Hand hand) {
+    public void setHand(PlayerHand hand) {
         this.hand = hand;
     }
-    public String getName(){
-        return name;
-    }
-
+   
     public ArrayList<Card> getHand() {
         return hand.getHand(); //delegation
+    }
+
+    public String getName(){
+        return name;
     }
 
     public int getScore() {
@@ -35,17 +36,36 @@ public class Player {
     public void addToScore(){
         this.score += 1;
     }
+    
+    public void checkScore(Card card){
+        int cardCount = 0;
+        for (Card c : this.getHand()) {
+            if(c.getValue()==card.getValue()){
+                    cardCount++;
+            }
+        }
+        if(cardCount == 4){
+            hand.removeFromHand(card);
+            score++;
+        }
+    }
     //adds a card to the player's hand instance var object
-    public boolean addToHand(Card card){
+    public boolean addToHand(Card card){ //delegation
+        
         return hand.addToHand(card);
-    }
-    public boolean checkHand(Card card){
-         return hand.removeFromHand(card);
-    }
-
+    }   
+    public boolean removeFromHand(Card card){ //delegation
+        
+        return hand.removeFromHand(card);
+    } 
+    public boolean checkHand(Card card){ //delegation
+        
+        return hand.checkHand(card);
+    } 
+    
     @Override
     public String toString() {
-        return "Player: " + "name=" + name + ", score=" + score +"\n"+hand.toString();
+        return "Player: " + "name=" + name + "'s score=" + score +"\n"+hand.toString();
     }
     
 }
