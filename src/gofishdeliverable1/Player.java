@@ -40,7 +40,7 @@ public class Player {
     public void checkScore(Card card){
         int cardCount = 0;
         for (Card c : this.getHand()) {
-            if(c.getValue()==card.getValue()){
+            if(c.getValue().getNum()==card.getValue().getNum()){
                     cardCount++;
             }
         }
