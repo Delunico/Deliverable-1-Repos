@@ -15,7 +15,26 @@ public class GoFishApp {
 
     public static void main(String[] args) {
        
+        //testing deck building
+        Deck testDeck = new Deck();
+        testDeck.buildDeck();
+        System.out.println(testDeck);
         System.out.println();
+        
+        //testing card draws
+        System.out.println(testDeck.getHand().get(0));
+        System.out.println(testDeck.drawCard());
+        System.out.println(testDeck.getHand().get(0));
+        
+        //testing the shuffle method
+        testDeck.shuffle();
+        System.out.println(testDeck);
+        
+        
+//everything below this line was commented out to test deck building with enums and shuffling
+//remove block comment lines on left edge to uncomment
+        
+/*        System.out.println();
         Random random=new Random();
         
         //make a player Hand
@@ -47,7 +66,7 @@ public class GoFishApp {
         *and removes all cards with the same value as the guesscard. 
         *(go fish is based on values, if u get four cards of the same value, the score increases)
         */
-        p1.checkScore(guessCard);
+/*        p1.checkScore(guessCard);
         while(p1.checkHand(guessCard)){
             for (int i = 0; i < p1.getHand().size(); i++) {
                 if(p1.getHand().get(i).getValue()==guessCard.getValue()){
@@ -103,7 +122,7 @@ public class GoFishApp {
             suit = sc.nextLine().trim();
             guessCard.setSuit(suit);
             */
-            System.out.print("Got any?: ");
+/*           System.out.print("Got any?: ");
             value = sc.nextInt();
             if((value<0||value>13)){
                 System.out.println("Value must be greater than 0 and less than 14");
@@ -115,6 +134,7 @@ public class GoFishApp {
             guessCard = pickCard();
         }
         return guessCard;
-    }
+*/    }
+    
 
 }

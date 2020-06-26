@@ -2,20 +2,20 @@ package gofishdeliverable1;
 
 public class Card {
 
-    private int value;
-    private String suit;
+    private Rank value;
+    private Suit suit;
     
-    public static final String[]SUITS={"Hearts","Diamonds","Spades","Clubs"};
+    //public static final String[]SUITS={"Hearts","Diamonds","Spades","Clubs"};
 
     public Card() {
     }
     
-    public Card(int value, String suit) {
+    public Card(Rank value, Suit suit) {
         this.value = value;
         this.suit = suit;
     }
     
-    public int getValue() {
+    public Rank getValue() {
         return this.value;
     }
 
@@ -23,10 +23,10 @@ public class Card {
      * 
      * @param value
      */
-    public void setValue(int value) {
+    public void setValue(Rank value) {
         this.value = value;
     }
-    public String getSuit() {
+    public Suit getSuit() {
         return this.suit;
     }
 
@@ -34,7 +34,7 @@ public class Card {
      * 
      * @param suit
      */
-    public void setSuit(String suit) {
+    public void setSuit(Suit suit) {
         this.suit = suit;
     }
 

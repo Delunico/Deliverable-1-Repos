@@ -46,7 +46,7 @@ public class PlayerHand extends Hand {
     public boolean checkHand(Card card) {
         for (Card c : this.getHand()) {
            
-            if(c.getValue()==card.getValue()){
+            if(c.getValue().getNum()==card.getValue().getNum()){
                 return true;
             }
         }
