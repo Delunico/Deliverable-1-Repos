@@ -35,7 +35,9 @@ public abstract class Hand{
         Card lowest = hand.get(0);
         for (int i = 0; i < hand.size(); i++) {
             for (int j = 1; j < hand.size(); j++) {
-                if(hand.get(j).getValue() < hand.get(j-1).getValue()){
+                if(hand.get(j).getValue().getNum() 
+                        < hand.get(j-1).getValue().getNum()){
+                    
                     lowest = hand.get(j);
                     hand.remove(j);
                     hand.add(0,lowest);
@@ -65,12 +67,7 @@ public abstract class Hand{
     //returns false if the hand is full
     //u can change the return to void if needed, j just thought it might be useful.
     public boolean addToHand(Card card){
-        if(hand.size() < handSizeLimit){
-            hand.add(card);
-        }else{
-            return false;
-        }
-        return true;
+            return hand.add(card);
     }
     
      public boolean removeFromHand(Card card) {
