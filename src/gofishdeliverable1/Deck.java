@@ -37,21 +37,17 @@ public class Deck extends Hand{
     }
     
     public void shuffle() {
-        ArrayList<Card> newDeck = new ArrayList();
-        for (int i = super.getHandSizeLimit(); i > 0; i--) {
-            int x = (int)(Math.random() * i);
-            newDeck.add(this.getHand().get(x));
-            this.removeFromHand(this.getHand().get(x));
+            
+        Card card = this.getHand().get(0);
+        for (int i = 0; i < this.getHand().size(); i++) {
+
+            for (int j = 1; j < this.getHand().size(); j++) {
+                int x = (int)(Math.random() * i);
+                    card = this.getHand().get(j);
+                    this.getHand().remove(j);
+                    this.getHand().add(x,card);
+            }
         }
-        this.setHand(newDeck);
-        /*
-        for (int i = 0; i < deck.length; i++) {
-            int j = (int)(Math.random() * 52);
-            Card newDeck = deck[i];
-            deck[i] = deck[j];
-            deck[j] = newDeck;
-        }
-        */
     }
     
     //returns the first card in the list and removes it from the deck
