@@ -30,11 +30,21 @@ public class PlayerHand extends Hand {
     @Override
     public String showHand() {
         String showHand = "";
+        String spaceFormat = "|%s%8s|"; 
+        showHand += "\n";
         for (int i = 0; i < this.getHand().size(); i++) {
-
-           showHand += "["+this.getHand().get(i).toString()+"]" + ",   ";
-         
-       }
+           showHand += "___________\n";
+            if(this.getHand().get(i).getValue().getNum()==10)
+                spaceFormat = "|%s%7s|";
+            else
+                spaceFormat = "|%s%8s|"; 
+           showHand += String.format(spaceFormat,this.getHand().get(i).getValue().getLetter(),this.getHand().get(i).getSuit().getSymbol())+"\n";     
+           showHand += "|         |\n";
+           showHand += "|         |\n";
+           showHand += "|         |\n";
+           showHand += "\u203E\u203E\u203E\u203E\u203E\u203E\u203E\u203E\u203E\u203E\u203E\u203E\u203E\u203E\u203E\n";
+        }  
+        
         return showHand;
     }
 

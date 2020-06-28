@@ -18,7 +18,7 @@ public class GoFishApp {
         //testing deck building
         Deck testDeck = new Deck();
         testDeck.buildDeck();
-        System.out.println(testDeck);
+        System.out.println(testDeck.showHand());
         System.out.println();
         
         //testing card draws
@@ -31,16 +31,23 @@ public class GoFishApp {
         System.out.println(testDeck);
         
         
+         //make a player Hand
+        PlayerHand nicksHand = new PlayerHand(5);//5 is the number of cards u want
+        //make a player 
+        Player p1 = new Player("Nick",nicksHand);
+        
+        for (int i = 0; i < nicksHand.getHandSizeLimit(); i++) {
+            nicksHand.addToHand(testDeck.drawCard());
+        }
+        System.out.print(nicksHand.showHand());
+        
 //everything below this line was commented out to test deck building with enums and shuffling
 //remove block comment lines on left edge to uncomment
         
 /*        System.out.println();
         Random random=new Random();
         
-        //make a player Hand
-        PlayerHand nicksHand = new PlayerHand(5);//5 is the number of cards u want
-        //make a player 
-        Player p1 = new Player("Nick",nicksHand);
+       
         
         //temporary population of nicksHand (david u can implement later) 
         //this needs enums to prevent repeating cards (i.e. making 2 identical cards)

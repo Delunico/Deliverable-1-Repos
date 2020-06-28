@@ -25,7 +25,7 @@ public enum Suit {
         return num;
     }
 
-    public String getFace() {
+    public String getName() {
         return face;
     }
 

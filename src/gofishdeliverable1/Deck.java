@@ -28,8 +28,9 @@ public class Deck extends Hand{
     public void buildDeck() {
         super.setHandSizeLimit(52);
         ArrayList<Card> deck = new ArrayList();
-        for (Suit s : Suit.values()) {
-            for (Rank r : Rank.values()) {
+        for (Rank r : Rank.values()) {
+            for (Suit s : Suit.values()) {
+            
                 deck.add(new Card(r, s));
             }
         }
@@ -61,22 +62,26 @@ public class Deck extends Hand{
     public String showHand() {
         String showHand = "";
         this.sortHand();
-        int lineSize = 12;
-        for (int i = 0; i < this.getHand().size(); i++) {
+        int count = 0;
+        int lineSize = 13;
+        for (int i = 0; i < 4; i++) {
+            for (int j = i; j < this.getHand().size(); j+=4) {
             
-            showHand += this.getHand().get(i).toString() + ", ";
-            if((i+1) == lineSize ){
+            showHand += this.getHand().get(j).toString() + " "; 
+            count++;
+            if(count == lineSize){
                 showHand += "\n";
-                lineSize += 12;
+                lineSize += 13;
+                }
             }
         }
         return showHand;
-       }
+    }
     
     public boolean checkHand(Card card){
         for (Card c : this.getHand()) {
            
-            if(c.getSuit().getFace().equalsIgnoreCase(card.getSuit().getFace()) 
+            if(c.getSuit().getName().equalsIgnoreCase(card.getSuit().getName()) 
                     && c.getValue().getNum() == card.getValue().getNum()){
                 this.getHand().remove(c);
                 return true;
@@ -91,7 +96,7 @@ public class Deck extends Hand{
     public String toString() {
         String s = "";
         for (Card c : this.getHand()) {
-            s += c.getValue().getName() + " of " + c.getSuit().getFace() + "\n";
+            s += c.getValue().getName() + " of " + c.getSuit().getName() + "\n";
         }
         return s;
     }
